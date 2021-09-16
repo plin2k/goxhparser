@@ -1,0 +1,41 @@
+<xml>
+    <title>Golang полезный</title>
+    <name>golang-useful</name>
+    <entity_id>-1001590573793</entity_id>
+    <entity_type>telegram</entity_type>
+
+    <source>
+        <url>https://habr.com/ru/hub/go/top/monthly</url>
+        <block>div div.tm-articles-list article.tm-articles-list__item</block>
+        <title>article.tm-articles-list__item div.tm-article-snippet h2.tm-article-snippet__title a.tm-article-snippet__title-link span</title>
+        <link prefix="https://habr.com">article.tm-articles-list__item div.tm-article-snippet h2.tm-article-snippet__title a.tm-article-snippet__title-link</link>
+        <short_content></short_content>
+        <full_content></full_content>
+        <author></author>
+        <rating>article.tm-articles-list__item div.tm-data-icons div.tm-votes-meter svg.tm-svg-img span</rating>
+    </source>
+
+    <source>
+        <url>https://tproger.ru/tag/golang</url>
+        <block>div.row div.margin div.main-page article.post</block>
+        <title>div.post-text div.post-title h2.entry-title</title>
+        <link>a.article-link</link>
+        <short_content>div.post-text div.entry-container div.entry-content p</short_content>
+        <full_content></full_content>
+        <author></author>
+        <rating></rating>
+    </source>
+
+    <source>
+        <url>https://proglib.io/tag/Go</url>
+        <block>main.feed div.feed__items div.mb-4</block>
+        <title>div.mb-4 article.block div.block__content div.preview-card__content a h2.preview-card__title</title>
+        <link prefix="https://proglib.io">div.mb-4 article.block div.block__content div.preview-card__content a</link>
+        <short_content></short_content>
+        <full_content></full_content>
+        <author></author>
+        <rating>div.mb-4 article.block div.block__content div.preview-card__content div.reactions-bar div.reactions-bar__info div.reactions-bar__info--left div.likes button span.reaction__count</rating>
+    </source>
+
+
+</xml>
