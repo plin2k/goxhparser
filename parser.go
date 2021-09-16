@@ -17,18 +17,18 @@ func parse(source Source) ([]SourceContent, error) {
 	defer res.Body.Close()
 	if res.StatusCode != 200 {
 		err = errors.New("status code error:" + string(res.StatusCode) + res.Status)
-		return content,err
+		return content, err
 	}
 
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	if err != nil {
-		return content,err
+		return content, err
 	}
 
 	selection := doc.Find(source.Block)
 	if len(selection.Nodes) == 0 {
 		err = errors.New("content not found")
-		return content,err
+		return content, err
 	}
 	selection.Each(func(i int, s *goquery.Selection) {
 		title := s.Find(source.Title).Text()
@@ -39,15 +39,15 @@ func parse(source Source) ([]SourceContent, error) {
 		}
 
 		if title != "" && link != "" {
-			content = append(content,SourceContent{
-				Title:title,
-				Link:link,
-				ShortContent:s.Find(source.ShortContent).Text(),
-				FullContent:s.Find(source.FullContent).Text(),
-				Author:s.Find(source.Author).Text(),
-				Rating:strings.TrimSpace(s.Find(source.Rating).Text()),
+			content = append(content, SourceContent{
+				Title:        title,
+				Link:         link,
+				ShortContent: s.Find(source.ShortContent).Text(),
+				FullContent:  s.Find(source.FullContent).Text(),
+				Author:       s.Find(source.Author).Text(),
+				Rating:       strings.TrimSpace(s.Find(source.Rating).Text()),
 			})
 		}
 	})
-	return content,nil
+	return content, nil
 }
