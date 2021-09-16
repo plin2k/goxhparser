@@ -8,7 +8,6 @@ import (
 
 type Service struct {
 	XMLName    xml.Name `xml:"xml"`
-	Text       string   `xml:",chardata"`
 	Title      string   `xml:"title"`
 	Name       string   `xml:"name"`
 	EntityID   string   `xml:"entity_id"`
@@ -17,7 +16,6 @@ type Service struct {
 }
 
 type Source struct {
-	Text  string `xml:",chardata"`
 	URL   string `xml:"url"`
 	Block string `xml:"block"`
 	Title string `xml:"title"`
