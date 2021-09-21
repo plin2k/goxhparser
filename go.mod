@@ -1,4 +1,4 @@
-module plin2k.com/goxhparser
+module github.com/plin2k/goxhparser
 
 go 1.17
 

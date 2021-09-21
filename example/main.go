@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
-	"plin2k.com/goxhparser"
+	"github.com/plin2k/goxhparser"
 	"sync"
 )
 
