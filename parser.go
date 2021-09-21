@@ -2,6 +2,7 @@ package goxhparser
 
 import (
 	"errors"
+	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"net/http"
 	"strings"
@@ -16,7 +17,7 @@ func parse(source Source) ([]SourceContent, error) {
 	}
 	defer res.Body.Close()
 	if res.StatusCode != 200 {
-		err = errors.New("status code error:" + string(res.StatusCode) + res.Status)
+		err = errors.New(fmt.Sprintf("status code error: %d %s",res.StatusCode,res.Status))
 		return content, err
 	}
 

@@ -40,6 +40,7 @@ type SourceContent struct {
 }
 
 func XMLToStruct(filename string) (Service, error) {
+	
 	xmlFile, err := os.Open(filename)
 	if err != nil {
 		return Service{}, err
