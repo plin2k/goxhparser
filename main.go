@@ -40,7 +40,7 @@ type SourceContent struct {
 }
 
 func XMLToStruct(filename string) (Service, error) {
-	
+
 	xmlFile, err := os.Open(filename)
 	if err != nil {
 		return Service{}, err
@@ -76,14 +76,14 @@ func ParseSources(sources []Source) ([]Source, error) {
 	return sources, nil
 }
 
-func ParseByXMLFile(filename string) ([]Source, error) {
+func ParseByXMLFile(filename string) ([]Source, Service, error) {
 	service, err := XMLToStruct(filename)
 	if err != nil {
-		return []Source{}, err
+		return []Source{}, service, err
 	}
 	sources, err := ParseSources(service.Sources)
 	if err != nil {
-		return []Source{}, err
+		return []Source{}, service, err
 	}
-	return sources, nil
+	return sources, service, nil
 }

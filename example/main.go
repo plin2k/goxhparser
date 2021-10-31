@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"github.com/plin2k/goxhparser"
+	"log"
 	"sync"
 )
 
@@ -35,7 +35,7 @@ func ParseByXMLFileInGoroutine() {
 }
 
 func ParseByXMLFile() {
-	sourcesContent, err := goxhparser.ParseByXMLFile("./golang_useful.xml")
+	sourcesContent, _, err := goxhparser.ParseByXMLFile("./golang_useful.xml")
 	if err != nil {
 		log.Fatalln(err)
 	}
