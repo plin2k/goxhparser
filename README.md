@@ -5,12 +5,12 @@ See example folder
 # SIMPLE
 
 ```
-sourcesContent,err := goxhparser.ParseByXMLFile("./golang_useful.xml")
+sourcesContent, xmlStruct, err := goxhparser.ParseByXMLFile("./golang_useful.xml")
 	if err != nil {
 		log.Fatalln(err)
 	}
 	for _,content := range sourcesContent {
-		fmt.Println(content.SourceContent)
+		fmt.Println(xmlStruct.EntityID,content.SourceContent)
 	}
  ```
  
