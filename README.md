@@ -4,37 +4,48 @@ See example folder
 
 # SIMPLE
 
-```
-sourcesContent, xmlStruct, err := goxhparser.ParseByXMLFile("./golang_useful.xml")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	for _,content := range sourcesContent {
-		fmt.Println(xmlStruct.EntityID,content.SourceContent)
-	}
+```go
+    parser := goxhparser.NewParser("./example/golang_useful.xml")
+    err := parser.Exec()
+    if err != nil {
+        log.Fatalln(err)
+    }
+
+    for _, content := range parser.Content {
+        fmt.Println(content)
+    }	
  ```
  
  
  
  # GOROUTINES
  
- ```
- var wg sync.WaitGroup
-	service,err := goxhparser.XMLToStruct("./golang_useful.xml")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	for key,source := range service.Sources {
-		wg.Add(1)
-		go func(index int, source1 goxhparser.Source){
-			content,err := goxhparser.ParseSource(source1)
-			if err != nil {
-				log.Fatalln(err)
-			}
-			service.Sources[index].SourceContent = content
-			wg.Done()
-		}(key,source)
-	}
-	wg.Wait()
-	fmt.Println(service.Sources)
+ ```go
+    var wg sync.WaitGroup
+    var mu sync.Mutex
+    parser := goxhparser.NewParser("./example/golang_useful.xml")
+    err := parser.XMLToStruct()
+    if err != nil {
+        log.Fatalln(err)
+    }
+    for _, value := range parser.Service.Sources {
+        wg.Add(1)
+        go func(source goxhparser.Source) {
+            content,err := parser.Parse(source)
+            if err != nil {
+                log.Fatalln(err)
+            }
+
+            mu.Lock()
+            parser.Content = append(parser.Content,content...)
+            mu.Unlock()
+
+            wg.Done()
+        }(value)
+    }
+    wg.Wait()
+
+    for _, content := range parser.Content {
+        fmt.Println(content)
+    }
  ```

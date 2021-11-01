@@ -6,6 +6,12 @@ import (
 	"os"
 )
 
+type Parser struct {
+	File    string
+	Service Service
+	Content []Content
+}
+
 type Service struct {
 	XMLName    xml.Name `xml:"xml"`
 	Title      string   `xml:"title"`
@@ -13,24 +19,30 @@ type Service struct {
 	EntityID   string   `xml:"entity_id"`
 	EntityType string   `xml:"entity_type"`
 	Sources    []Source `xml:"source"`
+	Rules      []Rule   `xml:"rule"`
 }
 
 type Source struct {
-	URL   string `xml:"url"`
+	Link     string `xml:",chardata"`
+	RuleName string `xml:"rule,attr"`
+	Rule     Rule
+}
+
+type Rule struct {
+	Name  string `xml:"name,attr"`
 	Block string `xml:"block"`
 	Title string `xml:"title"`
 	Link  struct {
 		Href   string `xml:",chardata"`
 		Prefix string `xml:"prefix,attr"`
 	} `xml:"link"`
-	ShortContent  string `xml:"short_content"`
-	FullContent   string `xml:"full_content"`
-	Author        string `xml:"author"`
-	Rating        string `xml:"rating"`
-	SourceContent []SourceContent
+	ShortContent string `xml:"short_content"`
+	FullContent  string `xml:"full_content"`
+	Author       string `xml:"author"`
+	Rating       string `xml:"rating"`
 }
 
-type SourceContent struct {
+type Content struct {
 	Title        string
 	Link         string
 	ShortContent string
@@ -39,51 +51,50 @@ type SourceContent struct {
 	Rating       string
 }
 
-func XMLToStruct(filename string) (Service, error) {
+func NewParser(filename string) *Parser {
+	return &Parser{
+		File: filename,
+	}
+}
 
-	xmlFile, err := os.Open(filename)
+func (parser *Parser) XMLToStruct() error {
+	xmlFile, err := os.Open(parser.File)
 	if err != nil {
-		return Service{}, err
+		return err
 	}
 	defer xmlFile.Close()
 	byteValue, _ := ioutil.ReadAll(xmlFile)
 
-	var service Service
-
-	err = xml.Unmarshal(byteValue, &service)
+	err = xml.Unmarshal(byteValue, &parser.Service)
 	if err != nil {
-		return Service{}, err
+		return err
 	}
-	return service, nil
+	parser.ruleToSource()
+	return nil
 }
 
-func ParseSource(source Source) ([]SourceContent, error) {
-	content, err := parse(source)
+func (parser *Parser) Exec() error {
+	err := parser.XMLToStruct()
 	if err != nil {
-		return content, err
+		return err
 	}
-	return content, nil
-}
-
-func ParseSources(sources []Source) ([]Source, error) {
-	for key, source := range sources {
-		content, err := ParseSource(source)
+	for _, source := range parser.Service.Sources {
+		content, err := parser.Parse(source)
 		if err != nil {
-			return sources, err
+			return err
 		}
-		sources[key].SourceContent = content
+		parser.Content = append(parser.Content, content...)
 	}
-	return sources, nil
+	return nil
 }
 
-func ParseByXMLFile(filename string) ([]Source, Service, error) {
-	service, err := XMLToStruct(filename)
-	if err != nil {
-		return []Source{}, service, err
+func (parser *Parser) ruleToSource() {
+	for _, rule := range parser.Service.Rules {
+		for skey, source := range parser.Service.Sources {
+			if source.RuleName == rule.Name {
+				parser.Service.Sources[skey].Rule = rule
+			}
+		}
 	}
-	sources, err := ParseSources(service.Sources)
-	if err != nil {
-		return []Source{}, service, err
-	}
-	return sources, service, nil
+	parser.Service.Rules = nil
 }

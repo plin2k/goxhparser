@@ -4,8 +4,12 @@
     <entity_id>-1001590573793</entity_id>
     <entity_type>telegram</entity_type>
 
-    <source>
-        <url>https://habr.com/ru/hub/go/top/monthly</url>
+    <source rule="habr">https://habr.com/ru/hub/go/top/monthly</source>
+    <source rule="tproger">https://tproger.ru/tag/golang</source>
+    <source rule="proglib">https://proglib.io/tag/Go</source>
+
+
+    <rule name="habr">
         <block>div div.tm-articles-list article.tm-articles-list__item</block>
         <title>article.tm-articles-list__item div.tm-article-snippet h2.tm-article-snippet__title a.tm-article-snippet__title-link span</title>
         <link prefix="https://habr.com">article.tm-articles-list__item div.tm-article-snippet h2.tm-article-snippet__title a.tm-article-snippet__title-link</link>
@@ -13,10 +17,9 @@
         <full_content></full_content>
         <author></author>
         <rating>article.tm-articles-list__item div.tm-data-icons div.tm-votes-meter svg.tm-svg-img span</rating>
-    </source>
+    </rule>
 
-    <source>
-        <url>https://tproger.ru/tag/golang</url>
+    <rule name="tproger">
         <block>div.row div.margin div.main-page article.post</block>
         <title>div.post-text div.post-title h2.entry-title</title>
         <link>a.article-link</link>
@@ -24,10 +27,9 @@
         <full_content></full_content>
         <author></author>
         <rating></rating>
-    </source>
+    </rule>
 
-    <source>
-        <url>https://proglib.io/tag/Go</url>
+    <rule name="proglib">
         <block>main.feed div.feed__items div.mb-4</block>
         <title>div.mb-4 article.block div.block__content div.preview-card__content a h2.preview-card__title</title>
         <link prefix="https://proglib.io">div.mb-4 article.block div.block__content div.preview-card__content a</link>
@@ -35,7 +37,7 @@
         <full_content></full_content>
         <author></author>
         <rating>div.mb-4 article.block div.block__content div.preview-card__content div.reactions-bar div.reactions-bar__info div.reactions-bar__info--left div.likes button span.reaction__count</rating>
-    </source>
+    </rule>
 
 
 </xml>

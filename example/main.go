@@ -5,6 +5,7 @@ import (
 	"github.com/plin2k/goxhparser"
 	"log"
 	"sync"
+	"time"
 )
 
 func main() {
@@ -14,32 +15,51 @@ func main() {
 }
 
 func ParseByXMLFileInGoroutine() {
+	start := time.Now()
 	var wg sync.WaitGroup
-	service, err := goxhparser.XMLToStruct("./golang_useful.xml")
+	var mu sync.Mutex
+	parser := goxhparser.NewParser("./example/golang_useful.xml")
+	err := parser.XMLToStruct()
 	if err != nil {
 		log.Fatalln(err)
 	}
-	for key, source := range service.Sources {
+	for _, value := range parser.Service.Sources {
 		wg.Add(1)
-		go func(index int, source1 goxhparser.Source) {
-			content, err := goxhparser.ParseSource(source1)
+		go func(source goxhparser.Source) {
+			content, err := parser.Parse(source)
 			if err != nil {
 				log.Fatalln(err)
 			}
-			service.Sources[index].SourceContent = content
+
+			mu.Lock()
+			parser.Content = append(parser.Content, content...)
+			mu.Unlock()
+
 			wg.Done()
-		}(key, source)
+		}(value)
 	}
 	wg.Wait()
-	fmt.Println(service.Sources)
+
+	for _, content := range parser.Content {
+		fmt.Println(content)
+	}
+	fmt.Println(len(parser.Content))
+
+	log.Println(time.Since(start))
 }
 
 func ParseByXMLFile() {
-	sourcesContent, _, err := goxhparser.ParseByXMLFile("./golang_useful.xml")
+	start := time.Now()
+	parser := goxhparser.NewParser("./example/golang_useful.xml")
+	err := parser.Exec()
 	if err != nil {
 		log.Fatalln(err)
 	}
-	for _, content := range sourcesContent {
-		fmt.Println(content.SourceContent)
+
+	for _, content := range parser.Content {
+		fmt.Println(content)
 	}
+	fmt.Println(len(parser.Content))
+
+	log.Println(time.Since(start))
 }
