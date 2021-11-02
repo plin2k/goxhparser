@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"io/ioutil"
 	"os"
+	"time"
 )
 
 type Parser struct {
@@ -77,7 +78,7 @@ func (parser *Parser) XMLToStruct() error {
 	return nil
 }
 
-func (parser *Parser) Exec() error {
+func (parser *Parser) Exec(delay time.Duration) error {
 	err := parser.XMLToStruct()
 	if err != nil {
 		return err
@@ -88,6 +89,7 @@ func (parser *Parser) Exec() error {
 			return err
 		}
 		parser.Content = append(parser.Content, content...)
+		time.Sleep(delay)
 	}
 	parser.reverseContentSlice()
 	return nil

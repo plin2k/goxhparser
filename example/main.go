@@ -62,7 +62,7 @@ func ParseByXMLFile() {
 		log.Fatalln(err)
 	}
 
-	err = parser.Exec()
+	err = parser.Exec(time.Second)
 	if err != nil {
 		log.Fatalln(err)
 	}
