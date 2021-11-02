@@ -101,8 +101,7 @@ func (parser *Parser) ruleToSource() {
 }
 
 func (parser *Parser) reverseContentSlice() {
-	for i := 0; i < len(parser.Content)/2; i++ {
-		j := len(parser.Content) - i - 1
+	for i, j := 0, len(parser.Content)-1; i < j; i, j = i+1, j-1 {
 		parser.Content[i], parser.Content[j] = parser.Content[j], parser.Content[i]
 	}
 }
