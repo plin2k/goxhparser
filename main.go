@@ -9,7 +9,6 @@ import (
 type Parser struct {
 	File    []byte
 	Service Service
-	Content []Content
 }
 
 type Service struct {
@@ -20,6 +19,7 @@ type Service struct {
 	EntityType string   `xml:"entity_type"`
 	Sources    []Source `xml:"source"`
 	Rules      []Rule   `xml:"rule"`
+	Content    []Content
 }
 
 type Source struct {
@@ -87,7 +87,7 @@ func (parser *Parser) Exec() error {
 		if err != nil {
 			return err
 		}
-		parser.Content = append(parser.Content, content...)
+		parser.Service.Content = append(parser.Service.Content, content...)
 	}
 	parser.reverseContentSlice()
 	return nil
@@ -105,7 +105,7 @@ func (parser *Parser) ruleToSource() {
 }
 
 func (parser *Parser) reverseContentSlice() {
-	for i, j := 0, len(parser.Content)-1; i < j; i, j = i+1, j-1 {
-		parser.Content[i], parser.Content[j] = parser.Content[j], parser.Content[i]
+	for i, j := 0, len(parser.Service.Content)-1; i < j; i, j = i+1, j-1 {
+		parser.Service.Content[i], parser.Service.Content[j] = parser.Service.Content[j], parser.Service.Content[i]
 	}
 }

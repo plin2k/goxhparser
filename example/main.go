@@ -38,7 +38,7 @@ func ParseByXMLFileInGoroutine() {
 			}
 
 			mu.Lock()
-			parser.Content = append(parser.Content, content...)
+			parser.Service.Content = append(parser.Service.Content, content...)
 			mu.Unlock()
 
 			wg.Done()
@@ -46,10 +46,10 @@ func ParseByXMLFileInGoroutine() {
 	}
 	wg.Wait()
 
-	for _, content := range parser.Content {
+	for _, content := range parser.Service.Content {
 		fmt.Println(content)
 	}
-	fmt.Println(len(parser.Content))
+	fmt.Println(len(parser.Service.Content))
 
 	log.Println(time.Since(start))
 }
@@ -67,10 +67,10 @@ func ParseByXMLFile() {
 		log.Fatalln(err)
 	}
 
-	for _, content := range parser.Content {
+	for _, content := range parser.Service.Content {
 		fmt.Println(content)
 	}
-	fmt.Println(len(parser.Content))
+	fmt.Println(len(parser.Service.Content))
 
 	log.Println(time.Since(start))
 }
