@@ -2,9 +2,10 @@ package goxhparser
 
 import (
 	"errors"
-	"github.com/PuerkitoBio/goquery"
 	"net/http"
 	"strings"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
 const (

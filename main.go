@@ -85,6 +85,7 @@ func (parser *Parser) Exec() error {
 		}
 		parser.Content = append(parser.Content, content...)
 	}
+	parser.reverseContentSlice()
 	return nil
 }
 
@@ -97,4 +98,11 @@ func (parser *Parser) ruleToSource() {
 		}
 	}
 	parser.Service.Rules = nil
+}
+
+func (parser *Parser) reverseContentSlice() {
+	for i := 0; i < len(parser.Content)/2; i++ {
+		j := len(parser.Content) - i - 1
+		parser.Content[i], parser.Content[j] = parser.Content[j], parser.Content[i]
+	}
 }

@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/plin2k/goxhparser"
 	"log"
 	"sync"
 	"time"
+
+	"github.com/plin2k/goxhparser"
 )
 
 func main() {
