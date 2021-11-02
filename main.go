@@ -7,7 +7,7 @@ import (
 )
 
 type Parser struct {
-	File    string
+	File    []byte
 	Service Service
 	Content []Content
 }
@@ -51,21 +51,25 @@ type Content struct {
 	Rating       string
 }
 
-func NewParser(filename string) *Parser {
-	return &Parser{
-		File: filename,
+func NewParser(filename string) (*Parser, error) {
+	var parser Parser
+
+	xmlFile, err := os.Open(filename)
+	if err != nil {
+		return nil, err
 	}
+	defer xmlFile.Close()
+
+	parser.File, err = ioutil.ReadAll(xmlFile)
+	if err != nil {
+		return nil, err
+	}
+	return &parser, nil
 }
 
 func (parser *Parser) XMLToStruct() error {
-	xmlFile, err := os.Open(parser.File)
-	if err != nil {
-		return err
-	}
-	defer xmlFile.Close()
-	byteValue, _ := ioutil.ReadAll(xmlFile)
 
-	err = xml.Unmarshal(byteValue, &parser.Service)
+	err := xml.Unmarshal(parser.File, &parser.Service)
 	if err != nil {
 		return err
 	}

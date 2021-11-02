@@ -7,8 +7,9 @@ import (
 )
 
 func TestParse(t *testing.T) {
-	parser := NewParser("./example/golang_useful.xml")
-	err := parser.XMLToStruct()
+	parser, err := NewParser("./example/golang_useful.xml")
+	assert.Nil(t, err, "Error from function NewParser")
+	err = parser.XMLToStruct()
 	assert.Nil(t, err, "Error from function XMLToStruct")
 
 	assert.NotNil(t, parser.Service.Title, "Title from xml file is empty")

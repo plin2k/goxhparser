@@ -19,8 +19,13 @@ func ParseByXMLFileInGoroutine() {
 	start := time.Now()
 	var wg sync.WaitGroup
 	var mu sync.Mutex
-	parser := goxhparser.NewParser("./example/golang_useful.xml")
-	err := parser.XMLToStruct()
+
+	parser, err := goxhparser.NewParser("./example/golang_useful.xml")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	err = parser.XMLToStruct()
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -51,8 +56,13 @@ func ParseByXMLFileInGoroutine() {
 
 func ParseByXMLFile() {
 	start := time.Now()
-	parser := goxhparser.NewParser("./example/golang_useful.xml")
-	err := parser.Exec()
+
+	parser, err := goxhparser.NewParser("./example/golang_useful.xml")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	err = parser.Exec()
 	if err != nil {
 		log.Fatalln(err)
 	}
