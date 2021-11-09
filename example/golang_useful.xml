@@ -10,7 +10,7 @@
 
     <content_rule>
         <content>link</content>
-        <content features="partly_english">short_content</content>
+        <content prefix="Рейтинг: ">rating</content>
     </content_rule>
 
     <rule name="habr">

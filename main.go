@@ -29,6 +29,8 @@ type Service struct {
 
 type ContentRuleField struct {
 	Field         string `xml:",chardata"`
+	Prefix        string `xml:"prefix,attr"`
+	Postfix       string `xml:"postfix,attr"`
 	Features      string `xml:"features,attr"`
 	FeaturesSlice []string
 }

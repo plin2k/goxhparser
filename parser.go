@@ -70,11 +70,11 @@ func (source Source) getLink(s *goquery.Selection) string {
 }
 
 func (source Source) getShortContent(s *goquery.Selection) string {
-	return s.Find(source.Rule.ShortContent).Text()
+	return strings.TrimSpace(s.Find(source.Rule.ShortContent).Text())
 }
 
 func (source Source) getFullContent(s *goquery.Selection) string {
-	return s.Find(source.Rule.FullContent).Text()
+	return strings.TrimSpace(s.Find(source.Rule.FullContent).Text())
 }
 
 func (source Source) getAuthor(s *goquery.Selection) string {
