@@ -14,6 +14,8 @@ type Parser struct {
 	Content []Content
 }
 
+type FeaturesSlice map[string][]string
+
 type Service struct {
 	XMLName     xml.Name `xml:"xml"`
 	Title       string   `xml:"title"`
@@ -31,8 +33,10 @@ type ContentRuleField struct {
 	Field         string `xml:",chardata"`
 	Prefix        string `xml:"prefix,attr"`
 	Postfix       string `xml:"postfix,attr"`
+	BottomPadding string `xml:"bottom_padding,attr"`
+	TopPadding    string `xml:"top_padding,attr"`
 	Features      string `xml:"features,attr"`
-	FeaturesSlice []string
+	FeaturesSlice
 }
 
 type Source struct {
@@ -87,6 +91,7 @@ func (parser *Parser) XMLToStruct() error {
 		return err
 	}
 	parser.ruleToSource()
+	parser.contentRules()
 	return nil
 }
 
@@ -104,7 +109,6 @@ func (parser *Parser) Exec(delay time.Duration) error {
 		time.Sleep(delay)
 	}
 	parser.reverseContentSlice()
-	parser.contentRules()
 	return nil
 }
 
@@ -121,11 +125,21 @@ func (parser *Parser) ruleToSource() {
 
 func (parser *Parser) contentRules() {
 	for i, v := range parser.Service.ContentRule.Content {
-		for _, feature := range strings.Split(v.Features, ",") {
-			parser.Service.ContentRule.Content[i].FeaturesSlice = append(parser.Service.ContentRule.Content[i].FeaturesSlice, feature)
-		}
+		parser.contentRuleFeatures(i, v)
 	}
 	parser.Service.Rules = nil
+}
+
+func (parser *Parser) contentRuleFeatures(i int, v ContentRuleField) {
+	var featureSlice = make(FeaturesSlice)
+	for _, feature := range strings.Split(v.Features, ";") {
+		if featureArr := strings.Split(feature, ":"); len(featureArr) > 1 {
+			featureSlice[featureArr[0]] = strings.Split(featureArr[1], ",")
+		} else {
+			featureSlice[featureArr[0]] = []string{}
+		}
+	}
+	parser.Service.ContentRule.Content[i].FeaturesSlice = featureSlice
 }
 
 func (parser *Parser) reverseContentSlice() {
