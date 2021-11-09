@@ -5,9 +5,9 @@
     <entity_type>telegram</entity_type>
 
     <content_rule>
+        <content bold="1" prefix="Рейтинг статьи : ">rating</content>
+        <content features="partly_english:0,1;" bottom_padding="1" top_padding="1">short_content</content>
         <content>link</content>
-        <content>full_content</content>
-        <content features="partly_english">short_content</content>
     </content_rule>
 
     <source rule="habr">https://habr.com/en/hub/career/top/monthly/</source>

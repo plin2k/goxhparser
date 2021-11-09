@@ -9,8 +9,8 @@
     <source rule="proglib">https://proglib.io/tag/Go</source>
 
     <content_rule>
+        <content bold="1" prefix="Рейтинг статьи : ">rating</content>
         <content>link</content>
-        <content prefix="Рейтинг: ">rating</content>
     </content_rule>
 
     <rule name="habr">

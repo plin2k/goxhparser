@@ -35,6 +35,7 @@ type ContentRuleField struct {
 	Postfix       string `xml:"postfix,attr"`
 	BottomPadding int    `xml:"bottom_padding,attr"`
 	TopPadding    int    `xml:"top_padding,attr"`
+	Bold          bool   `xml:"bold,attr"`
 	Features      string `xml:"features,attr"`
 	FeaturesSlice
 }
