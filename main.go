@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"io/ioutil"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -14,13 +15,22 @@ type Parser struct {
 }
 
 type Service struct {
-	XMLName    xml.Name `xml:"xml"`
-	Title      string   `xml:"title"`
-	Name       string   `xml:"name"`
-	EntityID   string   `xml:"entity_id"`
-	EntityType string   `xml:"entity_type"`
-	Sources    []Source `xml:"source"`
-	Rules      []Rule   `xml:"rule"`
+	XMLName     xml.Name `xml:"xml"`
+	Title       string   `xml:"title"`
+	Name        string   `xml:"name"`
+	EntityID    string   `xml:"entity_id"`
+	EntityType  string   `xml:"entity_type"`
+	Sources     []Source `xml:"source"`
+	Rules       []Rule   `xml:"rule"`
+	ContentRule struct {
+		Content []ContentRuleField `xml:"content"`
+	} `xml:"content_rule"`
+}
+
+type ContentRuleField struct {
+	Field         string `xml:",chardata"`
+	Features      string `xml:"features,attr"`
+	FeaturesSlice []string
 }
 
 type Source struct {
@@ -92,6 +102,7 @@ func (parser *Parser) Exec(delay time.Duration) error {
 		time.Sleep(delay)
 	}
 	parser.reverseContentSlice()
+	parser.contentRules()
 	return nil
 }
 
@@ -101,6 +112,15 @@ func (parser *Parser) ruleToSource() {
 			if source.RuleName == rule.Name {
 				parser.Service.Sources[skey].Rule = rule
 			}
+		}
+	}
+	parser.Service.Rules = nil
+}
+
+func (parser *Parser) contentRules() {
+	for i, v := range parser.Service.ContentRule.Content {
+		for _, feature := range strings.Split(v.Features, ",") {
+			parser.Service.ContentRule.Content[i].FeaturesSlice = append(parser.Service.ContentRule.Content[i].FeaturesSlice, feature)
 		}
 	}
 	parser.Service.Rules = nil

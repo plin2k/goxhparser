@@ -1,0 +1,25 @@
+<xml>
+    <title>Learn English IT</title>
+    <name>learn-english-it</name>
+    <entity_id>-1001787155463</entity_id>
+    <entity_type>telegram</entity_type>
+
+    <content_rule>
+        <content>link</content>
+        <content>full_content</content>
+        <content features="partly_english">short_content</content>
+    </content_rule>
+
+    <source rule="habr">https://habr.com/en/hub/career/top/monthly/</source>
+
+    <rule name="habr">
+        <block>div div.tm-articles-list article.tm-articles-list__item</block>
+        <title>article.tm-articles-list__item div.tm-article-snippet h2.tm-article-snippet__title a.tm-article-snippet__title-link span</title>
+        <link prefix="https://habr.com">article.tm-articles-list__item div.tm-article-snippet h2.tm-article-snippet__title a.tm-article-snippet__title-link</link>
+        <short_content>article.tm-articles-list__item div.tm-article-snippet div.tm-article-body div.article-formatted-body p</short_content>
+        <full_content></full_content>
+        <author>article.tm-articles-list__item div.tm-article-snippet div.tm-article-snippet__meta-container div.tm-article-snippet__meta span.tm-user-info span.tm-user-info__user a.tm-user-info__username</author>
+        <rating>article.tm-articles-list__item div.tm-data-icons div.tm-votes-meter span</rating>
+    </rule>
+
+</xml>

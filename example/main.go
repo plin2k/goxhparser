@@ -67,10 +67,12 @@ func ParseByXMLFile() {
 		log.Fatalln(err)
 	}
 
-	for _, content := range parser.Content {
-		fmt.Println(content)
-	}
-	fmt.Println(len(parser.Content))
+	fmt.Println(parser.Service.ContentRule)
+
+	//for _, content := range parser.Content {
+	//	fmt.Println(content)
+	//}
+	//fmt.Println(len(parser.Content))
 
 	log.Println(time.Since(start))
 }
