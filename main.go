@@ -44,6 +44,7 @@ type ContentRuleField struct {
 type Source struct {
 	Link     string `xml:",chardata"`
 	RuleName string `xml:"rule,attr"`
+	TagName  string `xml:"tag,attr"`
 	Rule     Rule
 }
 
@@ -68,6 +69,8 @@ type Content struct {
 	FullContent  string
 	Author       string
 	Rating       string
+
+	SourceTagName string
 }
 
 func NewParser(filename string) (*Parser, error) {
@@ -148,4 +151,9 @@ func (parser *Parser) reverseContentSlice() {
 	for i, j := 0, len(parser.Content)-1; i < j; i, j = i+1, j-1 {
 		parser.Content[i], parser.Content[j] = parser.Content[j], parser.Content[i]
 	}
+
+	for i, j := 0, len(parser.Content)-1; i < j; i, j = i+1, j-1 {
+		parser.Content[i], parser.Content[j] = parser.Content[j], parser.Content[i]
+	}
+
 }

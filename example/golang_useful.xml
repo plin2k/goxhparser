@@ -4,12 +4,13 @@
     <entity_id>-1001590573793</entity_id>
     <entity_type>telegram</entity_type>
 
-    <source rule="habr">https://habr.com/ru/hub/go/top/monthly</source>
-    <source rule="tproger">https://tproger.ru/tag/golang</source>
-    <source rule="proglib">https://proglib.io/tag/Go</source>
+    <source rule="habr" tag="Go">https://habr.com/ru/hub/go/top/monthly</source>
+    <source rule="tproger" tag="Go">https://tproger.ru/tag/golang</source>
+    <source rule="proglib" tag="Go">https://proglib.io/tag/Go</source>
 
     <content_rule>
         <content bold="1" prefix="Рейтинг статьи : ">rating</content>
+        <content bold="1" prefix="Основной тег : ">tag</content>
         <content>link</content>
     </content_rule>
 

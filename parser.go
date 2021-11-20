@@ -46,6 +46,8 @@ func (parser *Parser) Parse(source Source) ([]Content, error) {
 			FullContent:  source.getFullContent(s),
 			Author:       source.getAuthor(s),
 			Rating:       source.getRating(s),
+
+			SourceTagName: source.TagName,
 		}
 
 		if content.Title != "" && content.Link != "" {
