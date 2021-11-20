@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -46,6 +47,7 @@ func (parser *Parser) Parse(source Source) ([]Content, error) {
 			FullContent:  source.getFullContent(s),
 			Author:       source.getAuthor(s),
 			Rating:       source.getRating(s),
+			Date:         source.getDate(s),
 
 			SourceTagName: source.TagName,
 		}
@@ -85,4 +87,12 @@ func (source Source) getAuthor(s *goquery.Selection) string {
 
 func (source Source) getRating(s *goquery.Selection) string {
 	return strings.TrimSpace(s.Find(source.Rule.Rating).Text())
+}
+
+func (source Source) getDate(s *goquery.Selection) time.Time {
+	date, err := time.Parse(source.Rule.Date.Layout, strings.TrimSpace(s.Find(source.Rule.Date.Time).Text()))
+	if err != nil {
+		return time.Time{}
+	}
+	return date
 }

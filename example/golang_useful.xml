@@ -4,15 +4,27 @@
     <entity_id>-1001590573793</entity_id>
     <entity_type>telegram</entity_type>
 
-    <source rule="habr" tag="Go">https://habr.com/ru/hub/go/top/monthly</source>
-    <source rule="tproger" tag="Go">https://tproger.ru/tag/golang</source>
-    <source rule="proglib" tag="Go">https://proglib.io/tag/Go</source>
+<!--    <source rule="habr" tag="Go">https://habr.com/ru/hub/go/top/monthly</source>-->
+<!--    <source rule="tproger" tag="Go">https://tproger.ru/tag/golang</source>-->
+<!--    <source rule="proglib" tag="Go">https://proglib.io/tag/Go</source>-->
+    <source rule="go.dev" tag="Go">https://go.dev/blog</source>
 
     <content_rule>
         <content bold="1" prefix="Рейтинг статьи : ">rating</content>
-        <content bold="1" prefix="Основной тег : ">tag</content>
+        <content bold="1" prefix="Основной тег : ">source_tag</content>
         <content>link</content>
     </content_rule>
+
+    <rule name="go.dev">
+        <block>main.SiteContent--default div div div div.Article div p.blogtitle</block>
+        <title>p.blogtitle a</title>
+        <link prefix="https://go.dev">p.blogtitle a</link>
+        <short_content></short_content>
+        <full_content></full_content>
+        <author>p.blogtitle span.author</author>
+        <rating></rating>
+        <date layout="2 January 2006">p.blogtitle span.date</date>
+    </rule>
 
     <rule name="habr">
         <block>div div.tm-articles-list article.tm-articles-list__item</block>

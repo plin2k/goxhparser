@@ -60,6 +60,10 @@ type Rule struct {
 	FullContent  string `xml:"full_content"`
 	Author       string `xml:"author"`
 	Rating       string `xml:"rating"`
+	Date         struct {
+		Time   string `xml:",chardata"`
+		Layout string `xml:"layout,attr"`
+	} `xml:"date"`
 }
 
 type Content struct {
@@ -69,6 +73,7 @@ type Content struct {
 	FullContent  string
 	Author       string
 	Rating       string
+	Date         time.Time
 
 	SourceTagName string
 }
