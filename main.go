@@ -61,9 +61,9 @@ type Rule struct {
 	Author       string `xml:"author"`
 	Rating       string `xml:"rating"`
 	Date         struct {
-		Time   string `xml:",chardata"`
-		Layout string `xml:"layout,attr"`
-		Attr   string `xml:"attr,attr"`
+		Time      string `xml:",chardata"`
+		Layout    string `xml:"layout,attr"`
+		Attribute string `xml:"attribute,attr"`
 	} `xml:"date"`
 }
 

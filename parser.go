@@ -91,7 +91,7 @@ func (source Source) getRating(s *goquery.Selection) string {
 
 func (source Source) getDate(s *goquery.Selection) time.Time {
 	var dateStr string
-	if dt, ok := s.Find(source.Rule.Date.Time).Attr(source.Rule.Date.Attr); ok {
+	if dt, ok := s.Find(source.Rule.Date.Time).Attr(source.Rule.Date.Attribute); ok {
 		dateStr = dt
 	} else {
 		dateStr = s.Find(source.Rule.Date.Time).Text()

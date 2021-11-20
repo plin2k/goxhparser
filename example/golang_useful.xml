@@ -34,7 +34,7 @@
         <full_content></full_content>
         <author>article.tm-articles-list__item div.tm-article-snippet div.tm-article-snippet__meta-container div.tm-article-snippet__meta span.tm-user-info span.tm-user-info__user a.tm-user-info__username</author>
         <rating>article.tm-articles-list__item div.tm-data-icons div.tm-votes-meter span</rating>
-        <date layout="2006-01-02T15:04:05.000Z" attr="datetime">article.tm-articles-list__item div.tm-article-snippet div.tm-article-snippet__meta-container div.tm-article-snippet__meta span.tm-article-snippet__datetime-published time</date>
+        <date layout="2006-01-02T15:04:05.000Z" attribute="datetime">article.tm-articles-list__item div.tm-article-snippet div.tm-article-snippet__meta-container div.tm-article-snippet__meta span.tm-article-snippet__datetime-published time</date>
     </rule>
 
     <rule name="tproger">

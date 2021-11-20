@@ -68,7 +68,7 @@ func ParseByXMLFile() {
 	}
 
 	for _, content := range parser.Content {
-		fmt.Println(content)
+		fmt.Println(content, content.Date.Format("02 January 2006'"))
 	}
 	fmt.Println(len(parser.Content))
 
