@@ -48,6 +48,7 @@ func (parser *Parser) Parse(source Source) ([]Content, error) {
 			Author:       source.getAuthor(s),
 			Rating:       source.getRating(s),
 			Date:         source.getDate(s),
+			Tags:         source.getTags(s),
 
 			SourceTagName: source.TagName,
 		}
@@ -87,6 +88,19 @@ func (source Source) getAuthor(s *goquery.Selection) string {
 
 func (source Source) getRating(s *goquery.Selection) string {
 	return strings.TrimSpace(s.Find(source.Rule.Rating).Text())
+}
+
+func (source Source) getTags(s *goquery.Selection) []string {
+	var tags []string
+	selection := s.Find(source.Rule.TagsBlock)
+	if len(selection.Nodes) == 0 {
+		return tags
+	}
+	selection.Each(func(i int, s *goquery.Selection) {
+		tags = append(tags, strings.Join(strings.Split(strings.TrimSpace(s.Find(source.Rule.Tags).Text()), " "), "_"))
+	})
+
+	return tags
 }
 
 func (source Source) getDate(s *goquery.Selection) time.Time {

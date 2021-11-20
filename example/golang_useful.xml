@@ -28,6 +28,8 @@
 
     <rule name="habr">
         <block>div div.tm-articles-list article.tm-articles-list__item</block>
+        <tags_block>article.tm-articles-list__item div.tm-article-snippet div.tm-article-snippet__hubs span.tm-article-snippet__hubs-item</tags_block>
+        <tags>span.tm-article-snippet__hubs-item a.tm-article-snippet__hubs-item-link span:first-child</tags>
         <title>article.tm-articles-list__item div.tm-article-snippet h2.tm-article-snippet__title a.tm-article-snippet__title-link span</title>
         <link prefix="https://habr.com">article.tm-articles-list__item div.tm-article-snippet h2.tm-article-snippet__title a.tm-article-snippet__title-link</link>
         <short_content>article.tm-articles-list__item div.tm-article-snippet div.tm-article-body div.article-formatted-body p</short_content>

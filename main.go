@@ -49,10 +49,12 @@ type Source struct {
 }
 
 type Rule struct {
-	Name  string `xml:"name,attr"`
-	Block string `xml:"block"`
-	Title string `xml:"title"`
-	Link  struct {
+	Name      string `xml:"name,attr"`
+	Block     string `xml:"block"`
+	TagsBlock string `xml:"tags_block"`
+	Tags      string `xml:"tags"`
+	Title     string `xml:"title"`
+	Link      struct {
 		Href   string `xml:",chardata"`
 		Prefix string `xml:"prefix,attr"`
 	} `xml:"link"`
@@ -75,6 +77,7 @@ type Content struct {
 	Author       string
 	Rating       string
 	Date         time.Time
+	Tags         []string
 
 	SourceTagName string
 }
