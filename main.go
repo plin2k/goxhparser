@@ -63,6 +63,7 @@ type Rule struct {
 	Date         struct {
 		Time   string `xml:",chardata"`
 		Layout string `xml:"layout,attr"`
+		Attr   string `xml:"attr,attr"`
 	} `xml:"date"`
 }
 
