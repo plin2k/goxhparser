@@ -157,9 +157,4 @@ func (parser *Parser) reverseContentSlice() {
 	for i, j := 0, len(parser.Content)-1; i < j; i, j = i+1, j-1 {
 		parser.Content[i], parser.Content[j] = parser.Content[j], parser.Content[i]
 	}
-
-	for i, j := 0, len(parser.Content)-1; i < j; i, j = i+1, j-1 {
-		parser.Content[i], parser.Content[j] = parser.Content[j], parser.Content[i]
-	}
-
 }
