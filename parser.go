@@ -34,7 +34,7 @@ func (parser *Parser) Parse(source Source) ([]Content, error) {
 
 	selection := doc.Find(source.Rule.Block)
 	if len(selection.Nodes) == 0 {
-		err = errors.New(ErrorContentNotFound)
+		err = errors.New(source.Link + " | " + ErrorContentNotFound)
 		return nil, err
 	}
 
